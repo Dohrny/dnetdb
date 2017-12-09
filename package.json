@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "bodyparser": "1.18.2",
     "express": "^4.16.2",
     "mysql": "^2.15.0",
-    "bodyparser": "1.18.2"
+    "pug": "^2.0.0-rc.4"
   },
   "devDependencies": {},
   "scripts": {

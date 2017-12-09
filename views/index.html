@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="../public/css/formentry.css" />
+      <title>Standard Form</title>
+      
+      <!--<script type="text/javascript" src="/public/js/formentry.js" ></script>-->
+      
+    </head>
+    <body>
+        <section class="intro">
+            <h1>Dont forget to sign up for this thing that does nothing!</h1>
+            <p>
+                <a href = /views/index.html>Home</a>
+                <a href = /views/showdb.hbs>View Entries</a>
+            </p>
+            </section>
+      <table class="signup" border="0" cellpadding="2" cellspacing="5" bgcolor="#eeeeee">
+        <th colspan="2" align="center">Signup Form</th>
+        <form method="post" action="/views" onsubmit="return validate(this)">
+          <tr><td>First Name</td>
+            <td><input type="text" maxlength="32" name="forename" placeholder="First Name"</td></tr>
+          <tr><td>Last Name</td>
+            <td><input type="text" maxlength="32" name="surname" placeholder="Last Name"</td></tr>
+          <tr><td>Email</td>
+            <td><input type="text" maxlength="64" name="email" placeholder="Email Address"</td></tr>
+          <tr><td>Role</td>
+            <td><select name ="role">
+                <option value="STUDENT">Student</option>
+                <option value="TEACHER">Teacher</option>
+                </select></td></tr>
+          <tr><td colspan="2" align="center"><input type="submit"
+            value="Signup"></td></tr>
+        </form>
+      </table>
+      <div class = "info">
+          If you don't want to use your real name, that is fine.<br>
+          You prolly shouldn't use your real email, just in case im not smart as I look.<br>
+          Please don't break my database. tis fragile.
+      </div>
+      <div class="copyright">&copy; 2016 Adam Dohrn. Important Legal Stuff.<br>Site Ver. 0.5</div>
+    </body>
+  </html>

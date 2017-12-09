@@ -4,6 +4,9 @@ var bodyParser = require('body-parser') //needed for POST requests
 var http = require('http')
 var path = require('path') //needed to show static files
 var mysql = require('mysql')
+var pug = require('pug')
+
+app.set('view engine', 'pug')
 
 //connect to database
 var connection = mysql.createConnection({
@@ -13,6 +16,7 @@ var connection = mysql.createConnection({
     database: 'mydb'
 })
 
+//used to test connection to db
 connection.query('SELECT 1 + 1 AS solution', function (err, rows, fields) {
     if (err) throw err
     console.log('the solution is: ', rows[0].solution)
@@ -21,16 +25,17 @@ connection.query('SELECT 1 + 1 AS solution', function (err, rows, fields) {
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json()) //bodyparser use json data
 
-//load static files (css, js)
+//load static files (css, js)(views is html stuff)
 app.use('/public', express.static(path.join(__dirname + '/public')));
+app.use('/views', express.static(path.join(__dirname, 'views')))
 
 //show formentry.html
-app.get('/views/formentry.html', function (req, res) {
-    res.sendFile(__dirname + "/" + "views/formentry.html");
-})
+//app.get('/views/formentry.html', function (req, res) {
+    //res.sendFile(__dirname + "/" + "views/formentry.html");
+//})
 
 //get data to be put in db and put that mofo in db
-app.post('/views/formentry.html', function (req, res) {
+app.post('/views', function (req, res) {
     console.log(req.body.forename)
 
     console.log(connection.state)
@@ -41,12 +46,22 @@ app.post('/views/formentry.html', function (req, res) {
     var role = req.body.role
     
     var sql = 'INSERT INTO registration_table (first_name, last_name, email, role) VALUES("'+fname+'", "'+lname+'", "'+email+'", "'+role+'")'
-    connection.query(sql, function(err, res) {
+    connection.query(sql, function(err, req, res) {
       if (err) throw err
     console.log(connection.state)
     })
-    
+    res.sendFile(__dirname + '/views/index.html')
 })
+
+app.get('/views/showdb.pug', function(req, res) {
+    var sql = 'SELECT * FROM registration_table'
+    connection.query(sql, function(err, req, res) {
+        if (err) throw err
+        
+    })
+    //res.sendFile(__dirname + '/vies/showdb.html')
+})
+
 
 var server = app.listen(8081, function () {
     var host = server.address().address
