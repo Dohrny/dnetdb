@@ -4,7 +4,6 @@ var bodyParser = require('body-parser') //needed for POST requests
 var http = require('http')
 var path = require('path') //needed to show static files
 var mysql = require('mysql')
-var pug = require('pug')
 
 app.set('view engine', 'pug')
 
@@ -28,6 +27,11 @@ app.use(bodyParser.json()) //bodyparser use json data
 //load static files (css, js)(views is html stuff)
 app.use('/public', express.static(path.join(__dirname + '/public')));
 app.use('/views', express.static(path.join(__dirname, 'views')))
+
+//to render .pug files
+app.use('/', function(req, res) {
+    res.render('showdb')
+})
 
 //get data to be put in db and put that mofo in db
 app.post('/views', function (req, res) {
