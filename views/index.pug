@@ -1,0 +1,24 @@
+-var forename
+-var surname
+-var email
+-var role
+
+html
+    head
+        link(rel="stylesheet" type="text/css" href="../public/css/formentry.css")
+        title Standard Form
+
+    body
+        .intro
+            h1 Dont forget to sign up for this thing that does nothing!
+            .navigation
+                a(href= /views/index.pug) Home
+                a(href= /views/showdb.pug) View Entries
+        table.signup(class= "signup") Signup Form
+            //form(method="post" action="/views" onsubmit="return validate(this)")
+                tr
+                    td First Name
+                    td(input type="text" maxlength="32" name="forename" placeholder="First Name")
+                tr
+            form(method="post" action="/views" onsubmit="return validate(this)")
+                

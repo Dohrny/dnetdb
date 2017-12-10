@@ -29,11 +29,6 @@ app.use(bodyParser.json()) //bodyparser use json data
 app.use('/public', express.static(path.join(__dirname + '/public')));
 app.use('/views', express.static(path.join(__dirname, 'views')))
 
-//show formentry.html
-//app.get('/views/formentry.html', function (req, res) {
-    //res.sendFile(__dirname + "/" + "views/formentry.html");
-//})
-
 //get data to be put in db and put that mofo in db
 app.post('/views', function (req, res) {
     console.log(req.body.forename)
@@ -53,13 +48,20 @@ app.post('/views', function (req, res) {
     res.sendFile(__dirname + '/views/index.html')
 })
 
-app.get('/views/showdb.pug', function(req, res) {
+app.get('/showdb', function(req, res) {
+    console.log("get showdb")
     var sql = 'SELECT * FROM registration_table'
-    connection.query(sql, function(err, req, res) {
+    connection.query(sql, function(err, rows) {
         if (err) throw err
-        
+        res.json(rows)
+        //console.log("")
+
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i]
+            console.log(row.first_name)
+            console.log("test")
+        }
     })
-    //res.sendFile(__dirname + '/vies/showdb.html')
 })
 
 
