@@ -6,4 +6,16 @@ html
     body
         .intro
             h1 Here is the full list of entries into the database
-            a(href="index.html") Home
+            a(href="index") Home
+        table.dbTable
+            tr
+                td First Name
+                td Last Name
+                td email
+                td role
+            for person in personList
+                tr
+                    td= person.first_name
+                    td= person.last_name
+                    td= person.email
+                    td= person.role

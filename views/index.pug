@@ -1,24 +1,45 @@
--var forename
--var surname
--var email
--var role
-
 html
     head
         link(rel="stylesheet" type="text/css" href="../public/css/formentry.css")
+        script(src="/public/js/formentry.js")
         title Standard Form
 
     body
         .intro
             h1 Dont forget to sign up for this thing that does nothing!
             .navigation
-                a(href= /views/index.pug) Home
-                a(href= /views/showdb.pug) View Entries
+                a(href= "/index") Home
+                a(href= "/showdb") View Entries
         table.signup(class= "signup") Signup Form
-            //form(method="post" action="/views" onsubmit="return validate(this)")
+            form(method="post" action="/" onsubmit="return validate(this)")
                 tr
-                    td First Name
-                    td(input type="text" maxlength="32" name="forename" placeholder="First Name")
+                    td First Name:
+                    td
+                        input(type="text" maxlength="32" name="forename" placeholder="First Name")
                 tr
-            form(method="post" action="/views" onsubmit="return validate(this)")
-                
+                    td Last Name:
+                    td
+                        input(type="text" maxlength="32" name="surname" placeholder="Last Name")
+                tr
+                    td email:
+                    td
+                        input(type="text" maxlength="32" name="email" placeholder="email address")
+                tr
+                    td role:
+                    td
+                        select(name="role")
+                            option(value="STUDENT") Student
+                            option(value="TEACHER") Teacher
+                tr
+                    td
+                        input(type="submit" value="Signup")
+        .info
+            p If you dont want to use your real name that is fine.
+            br
+            | you prolly shouldnt use your real email, just in case im not as smart as i look
+            br
+            | please dont break my database. tis fragile.
+        .copyright
+            p &copy; 2017 Adam Dohrn. Important Legal Stuff.
+            br
+            | Site Ver. 0.6
