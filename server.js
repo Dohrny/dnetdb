@@ -4,6 +4,8 @@ var bodyParser = require('body-parser') //needed for POST requests
 var http = require('http')
 var path = require('path') //needed to show static files
 var mysql = require('mysql')
+const { check, validationResult } = require('express-validator/check')
+const { matchedData } = require('express-validator/filter')
 
 app.set('view engine', 'pug')
 
@@ -30,49 +32,84 @@ app.use('/views', express.static(path.join(__dirname, 'views')))
 
 
 //to render .pug files
-app.use('/index', function(req, res) {
+app.use('/index', function (req, res) {
     res.render('index')
 })
-app.use('/showdb', function(req, res) {
+app.use('/showdb', function (req, res) {
     var personList = []
 
     var sql = 'SELECT * FROM registration_table'
-    connection.query(sql, function(err, rows) {
+    connection.query(sql, function (err, rows) {
         if (err) throw err
-        
+
         for (var i in rows) {
             var row = rows[i].first_name
             var person = {
-                'first_name':rows[i].first_name,
-                'last_name':rows[i].last_name,
-                'email':rows[i].email,
-                'role':rows[i].role
+                'first_name': rows[i].first_name,
+                'last_name': rows[i].last_name,
+                'email': rows[i].email,
+                'role': rows[i].role
             }
             personList.push(person)
         }
-        res.render('showdb', {'personList': personList})
+        res.render('showdb', { 'personList': personList })
     })
 })
 
-//get data to be put in db and put that mofo in db
-app.post('/', function (req, res) {
-    console.log(req.body.forename)
-
-    console.log(connection.state)
-    
-    var fname = req.body.forename
-    var lname = req.body.surname
+app.post('/', [
+    check('forename', 'give a name').trim().isLength({ min: 1 }).escape(),
+    check('surname', 'give last name').trim().isLength({ min: 1 }).escape(),
+    check('email', 'wtb email').trim().isEmail().normalizeEmail()
+], function (req, res, next) {
+    const errors = validationResult(req)
+    console.log(errors)
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.mapped() })
+    }
+    var fName = req.body.forename
+    var lName = req.body.surname
     var email = req.body.email
     var role = req.body.role
-    
-    var sql = 'INSERT INTO registration_table (first_name, last_name, email, role) VALUES("'+fname+'", "'+lname+'", "'+email+'", "'+role+'")'
-    connection.query(sql, function(err, req, res) {
-      if (err) throw err
-    console.log(connection.state)
+
+    var sql = 'INSERT INTO registration_table (first_name, last_name, email, role) VALUES("' + fName + '", "' + lName + '", "' + email + '", "' + role + '")'
+    connection.query(sql, function (err, req, res) {
+        if (err) throw err
+        console.log(connection.state)
     })
-    res.render('index')
+    res.redirect('back')
+
 })
 
+/*
+//get data to be put in db and put that mofo in db
+app.post('/', function (req, res) {
+    checkBody('forename', 'invalid name i think').notEmpty
+    checkBody('surname', 'invalid name i think').notEmpty
+    checkBody('email', 'not and email address').isEmail
+    checkBody('role', "no way this should ever show up").notEmpty
+    
+    var errors = validationResult(req).throw()
+    console.log(errors)
+
+    if (errors) {
+        res.send(errors)
+        console.log("errors=true")
+        return
+    } else {
+        var fName = req.body.forename
+        var lName = req.body.surname
+        var email = req.body.email
+        var role = req.body.role
+
+        var sql = 'INSERT INTO registration_table (first_name, last_name, email, role) VALUES("'+fName+'", "'+lName+'", "'+email+'", "'+role+'")'
+        connection.query(sql, function(err, req, res) {
+          if (err) throw err
+        console.log(connection.state)
+        })
+        res.render('index')
+    }
+})
+*/
 var server = app.listen(8081, function () {
     var host = server.address().address
     var port = server.address().port
