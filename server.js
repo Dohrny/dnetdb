@@ -5,7 +5,7 @@ var http = require('http')
 var path = require('path') //needed to show static files
 var mysql = require('mysql')
 const { check, validationResult } = require('express-validator/check')
-const { matchedData } = require('express-validator/filter')
+//const { matchedData } = require('express-validator/filter')
 
 app.set('view engine', 'pug')
 
@@ -31,10 +31,11 @@ app.use('/public', express.static(path.join(__dirname + '/public')));
 app.use('/views', express.static(path.join(__dirname, 'views')))
 
 
-//to render .pug files
+//to render .pug file 'index'
 app.use('/index', function (req, res) {
     res.render('index')
 })
+//render showdb.pug and all the db shit
 app.use('/showdb', function (req, res) {
     var personList = []
 
@@ -63,7 +64,7 @@ app.post('/', [
     check('email', 'wtb email').trim().isEmail().normalizeEmail()
 ], function (req, res, next) {
     const errors = validationResult(req)
-    console.log(errors)
+
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.mapped() })
     }
@@ -78,7 +79,6 @@ app.post('/', [
         console.log(connection.state)
     })
     res.redirect('back')
-
 })
 
 var server = app.listen(8081, function () {
