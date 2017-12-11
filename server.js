@@ -56,6 +56,7 @@ app.use('/showdb', function (req, res) {
     })
 })
 
+//get data to put in db and put that mofo in db (validate first)
 app.post('/', [
     check('forename', 'give a name').trim().isLength({ min: 1 }).escape(),
     check('surname', 'give last name').trim().isLength({ min: 1 }).escape(),
@@ -80,36 +81,6 @@ app.post('/', [
 
 })
 
-/*
-//get data to be put in db and put that mofo in db
-app.post('/', function (req, res) {
-    checkBody('forename', 'invalid name i think').notEmpty
-    checkBody('surname', 'invalid name i think').notEmpty
-    checkBody('email', 'not and email address').isEmail
-    checkBody('role', "no way this should ever show up").notEmpty
-    
-    var errors = validationResult(req).throw()
-    console.log(errors)
-
-    if (errors) {
-        res.send(errors)
-        console.log("errors=true")
-        return
-    } else {
-        var fName = req.body.forename
-        var lName = req.body.surname
-        var email = req.body.email
-        var role = req.body.role
-
-        var sql = 'INSERT INTO registration_table (first_name, last_name, email, role) VALUES("'+fName+'", "'+lName+'", "'+email+'", "'+role+'")'
-        connection.query(sql, function(err, req, res) {
-          if (err) throw err
-        console.log(connection.state)
-        })
-        res.render('index')
-    }
-})
-*/
 var server = app.listen(8081, function () {
     var host = server.address().address
     var port = server.address().port
