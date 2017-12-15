@@ -5,41 +5,30 @@ html
         title Standard Form
 
     body
-        .intro
+        .navigation
+            a(href= "/index") Home
+            a(href= "/showdb") View Entries
+        .title
             h1 Dont forget to sign up for this thing that does nothing!
-            .navigation
-                a(href= "/index") Home
-                a(href= "/showdb") View Entries
-        table.signup Signup Form
+        .signup
             form(method="post" action="/" onsubmit="return validate(this)")
-                tr
-                    td First Name:
-                    td
-                        input(type="text" maxlength="32" name="forename" placeholder="First Name" required)
-                tr
-                    td Last Name:
-                    td
-                        input(type="text" maxlength="32" name="surname" placeholder="Last Name" required)
-                tr
-                    td email:
-                    td
-                        input(type="text" maxlength="32" name="email" placeholder="email address" required)
-                tr
-                    td role:
-                    td
-                        select(name="role")
-                            option(value="STUDENT") Student
-                            option(value="TEACHER") Teacher
-                tr
-                    td
-                        input(type="submit" value="Signup")
+                label(for="fname") First Name
+                input(id="fname" type="text" maxlength="30" name="forename" placeholder="First Name" required)
+                label(for="lname") Last Name
+                input(id="lname" type="text" maxlength="30" name="surname" placeholder="Last Name" required)
+                labe(for="email") Email
+                input(id="email" type="text" maxlength="64" name="email" placeholder="email address" required)
+                label(for="role") Role
+                select(name="role")
+                    option(value="STUDENT") Student
+                    option(value="TEACHER") Teacher
+                input(type="submit" value="Signup")
         .info
             p If you dont want to use your real name that is fine.
             br
             | you prolly shouldnt use your real email, just in case im not as smart as i look
             br
             | please dont break my database. tis fragile.
-        .copyright
+        .footer
             p &copy; 2017 Adam Dohrn. Important Legal Stuff.
-            br
-            | Site Ver. 0.7
+            p Site Ver. 0.7

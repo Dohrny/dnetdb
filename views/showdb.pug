@@ -2,17 +2,18 @@
 html
     head
         title Full list of entries into the DB
+        link(rel="stylesheet" type="text/css" href="../public/css/showdb.css")
     
     body
         .intro
-            h1 Here is the full list of entries into the database
             a(href="index") Home
+            h1 Here is the full list of entries into the database
         table.dbTable
             tr
-                td First Name
-                td Last Name
-                td email
-                td role
+                th First Name
+                th Last Name
+                th email
+                th role
             for person in personList
                 tr
                     td= person.first_name

@@ -1,8 +1,44 @@
 body {
-    background-color: lightpink;
+    background-color: #ffb6c1;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.signup td {
-    border-color: black;
-    border: 1px;
+.navigation a {
+    float: left;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.signup {
+    width: 25%;
+    padding: 20px;
+    margin-left: 5%;
+}
+
+input[type="text"], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 4px 8px 16px 8px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+input[type="submit"] {
+    width: 100%;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.footer p {
+    margin: 0;
 }
