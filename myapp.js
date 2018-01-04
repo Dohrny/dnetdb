@@ -53,6 +53,10 @@ app.use('/showdb', function (req, res) {
     })
 })
 
+app.get('/', function (req, res) {
+    res.render('index')
+})
+
 //get data to put in db and put that mofo in db (validate first)
 app.post('/', [
     check('forename', 'give a name').trim().isLength({ min: 1 }).escape(),
