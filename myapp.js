@@ -7,6 +7,8 @@ var mysql = require('./mysql').pool
 const { check, validationResult } = require('express-validator/check')
 //const { matchedData } = require('express-validator/filter')
 
+var showdb = require('./showdb')
+
 app.set('view engine', 'pug')
 
 //used to test connection to db
@@ -29,29 +31,8 @@ app.use('/views', express.static(path.join(__dirname, 'views')))
 app.use('/index', function (req, res) {
     res.render('index')
 })
-//render showdb.pug and all the db shit
-app.use('/showdb', function (req, res) {
-    var personList = []
 
-    var sql = 'SELECT * FROM registration_table'
-    mysql.getConnection(function (err, conn) {
-        conn.query(sql, function (err, rows) {
-            if (err) throw err
-
-            for (var i in rows) {
-                var row = rows[i].first_name
-                var person = {
-                    'first_name': rows[i].first_name,
-                    'last_name': rows[i].last_name,
-                    'email': rows[i].email,
-                    'role': rows[i].role
-                }
-                personList.push(person)
-            }
-            res.render('showdb', { 'personList': personList })
-        })
-    })
-})
+app.use('/showdb', showdb)
 
 app.get('/', function (req, res) {
     res.render('index')
