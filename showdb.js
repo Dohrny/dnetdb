@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router()
 //var bodyParser = require('body-parser') //needed for POST requests
-var http = require('http')
-var path = require('path') //needed to show static files
+//var http = require('http')
+//var path = require('path') //needed to show static files
 var mysql = require('./mysql').pool
 
 //render showdb.pug and all the db shit

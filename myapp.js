@@ -60,7 +60,8 @@ app.post('/', [
             if (err) throw err
             console.log(conn.state)
         })
-        res.redirect('back')
+        //res.redirect('back')
+        res.render('index', {dbUpdate: 'db updated i think'})
     })
 })
 
