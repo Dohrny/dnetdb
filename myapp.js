@@ -5,6 +5,7 @@ var http = require('http')
 var path = require('path') //needed to show static files
 var mysql = require('./mysql').pool
 const { check, validationResult } = require('express-validator/check')
+const router = express.Router()
 //const { matchedData } = require('express-validator/filter')
 
 var showdb = require('./showdb')
@@ -37,6 +38,7 @@ app.use('/showdb', showdb)
 app.get('/', function (req, res) {
     res.render('index')
 })
+
 
 //get data to put in db and put that mofo in db (validate first)
 app.post('/', [
